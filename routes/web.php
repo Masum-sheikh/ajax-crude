@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Ajax_2Controller;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoriController;
 use Illuminate\Support\Facades\Route;
@@ -31,10 +32,11 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 //ajax crud started
-Route::get('/index', [CategoriController::class, 'index'])->name('index');
-Route::get('/edite/item/{id}', [CategoriController::class, 'edite'])->name('edite');
-Route::get('/delete/item/{id}', [CategoriController::class, 'delete'])->name('delete');
-Route::post('/update/item/{id}', [CategoriController::class, 'update'])->name('update');
-Route::post('store/categori/', [CategoriController::class, 'store'])->name('store');
 
+// ajax_2 crude
+Route::get('/index_2',[Ajax_2Controller::class, 'index_2'])->name('index_2');
+Route::post('/ajax/store',[Ajax_2Controller::class, 'store'])->name('store');
+Route::get('/ajax/edite/{id}',[Ajax_2Controller::class, 'edit'])->name('edit');
+Route::post('/ajax/update/{id}',[Ajax_2Controller::class, 'update'])->name('update');
+Route::get('/ajax/delete/{id}',[Ajax_2Controller::class, 'delete'])->name('delete');
 
