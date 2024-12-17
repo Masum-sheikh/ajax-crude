@@ -8,7 +8,8 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
-
+     {{-- front awesome cdn --}}
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"  />
     <title>Hello, world!</title>
   </head>
   <body>
@@ -22,38 +23,49 @@
             data-bs-toggle="modal" data-bs-target="#additemModal">Add new</button>
         </h1>
         </div>
-        <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">id</th>
-                <th scope="col">name</th>
-                <th scope="col">price</th>
-                <th scope="col">image</th>
-                <th scope="col">action</th>
-              </tr>
-            </thead>
-            <tbody>
 
-           @foreach ($item as $key => $items)
+       <div class="container mt-4">
+  <div class="table-responsive">
+    <table class="table table-bordered text-center align-middle">
+      <thead class="table-primary">
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Name</th>
+          <th scope="col">Price</th>
+          <th scope="col">Image</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        @foreach ($item as $key => $items)
+          <tr>
+            <th scope="row">{{ $key+1 }}</th>
+            <td>{{ $items->name }}</td>
+            <td>{{ $items->price }}</td>
+            <td>
+              <img src="{{ asset('images/' . $items->image) }}"
+                   width="40px"
+                   class="rounded-circle img-thumbnail"
+                   alt="Item Image">
+            </td>
+            <td>
+              <button class="btn btn-primary btn-sm mx-1 edite" data-id="{{ $items->id }}">
+                <i class="fa-solid fa-pen-to-square"></i>
+              </button>
+              <button class="btn btn-danger btn-sm mx-1 delete" data-id="{{ $items->id }}">
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </td>
+          </tr>
+        @endforeach
+      </tbody>
+    </table>
+  </div>
+  <div class="d-flex justify-content-center">
+    {{ $item->links('pagination::bootstrap-5') }}
+  </div>
+</div>
 
-
-              <tr>
-                <th scope="row">{{ $key+1 }}</th>
-                <td>{{ $items->name }}</td>
-                <td>{{ $items->price }}</td>
-                <td><img src="{{ asset('images/' . $items->image) }}" width="80px" class="rounded-circle" alt=""></td>
-                <td>
-                    <button class="btn btn-primary edite"
-                      data-id = {{ $items->id }}
-                    >edit</button>||<button class="btn btn-danger delete"
-                    data-id = {{ $items->id }}
-
-                    >delete</button>
-                </td>
-              </tr>
-              @endforeach
-            </tbody>
-          </table>
           {{-- start additem modal --}}
           <div class="modal fade" id="additemModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">

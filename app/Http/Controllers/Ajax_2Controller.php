@@ -8,7 +8,8 @@ class Ajax_2Controller extends Controller
 {
     //
     public function index_2(){
-        $item = Ajax::all();
+        // $item = Ajax::all();
+        $item = Ajax::paginate(5);
         return view('ajax_2.index_2',compact('item'));
     }
     public function store(Request $request){
